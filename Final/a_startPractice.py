@@ -1,7 +1,7 @@
 from queue import PriorityQueue
 queue = PriorityQueue()
 
-with open("Lab_5\\input_file.txt", "r") as file:
+with open("Final\\input_file.txt", "r") as file:
     inp = file.readlines()
     # print(inp)
     h_value = {}
@@ -13,17 +13,20 @@ with open("Lab_5\\input_file.txt", "r") as file:
            
 def fringe(start,goal):
     queue.put((h_value[start],start,'Null',0))
-    distance = 0
+   
     path = {}
     final_path = ''
     while True:
         value = queue.get()
         child, parent, dis = value[1], value[2], value[3]
+
         for i in range(0,len(graph[child]),2):
+                
                 queue.put((h_value[graph[child][i]]+int(graph[child][i+1])+dis,
                 graph[child][i],
                 child, dis+int(graph[child][i+1])))
                 path[child] = [parent,dis]
+
         if child == goal:
             tempS = start
             tempE = goal
@@ -38,5 +41,6 @@ def fringe(start,goal):
         
 start = 'Arad'
 goal = 'Bucharest'  
+
 
 print(fringe(start,goal))
